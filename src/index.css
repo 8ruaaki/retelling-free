@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design tokens — 完全モノトーン（白・黒・グレー）
+   ============================================================ */
+@theme {
+  --font-sans: "Inter", "Noto Sans JP", system-ui, sans-serif;
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-mist: #f9fafb;
+  --color-line: #e5e7eb;
+  --color-mute: #6b7280;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-mist);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 24px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 微細なドットグリッド背景（モノトーンの質感） */
+.bg-grid {
+  background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ---------- Buttons ---------- */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-[25px] font-bold
+      transition-all duration-200 select-none cursor-pointer
+      focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/20;
+  }
+  /* 使用例: className="btn btn-primary" */
+  .btn-primary {
+    @apply bg-black text-white border-2 border-black shadow-[0_4px_0_0_#00000033]
+      hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_#00000033]
+      active:translate-y-0.5 active:shadow-none;
+  }
+  .btn-secondary {
+    @apply bg-white text-black border-2 border-black
+      hover:bg-black hover:text-white;
+  }
+  .btn-ghost {
+    @apply bg-transparent text-black border-2 border-transparent px-4 py-2 text-[22px]
+      hover:border-black;
+  }
+  .btn:disabled,
+  .btn[aria-disabled="true"] {
+    @apply bg-gray-200 text-gray-400 border-gray-300 shadow-none cursor-not-allowed
+      hover:translate-y-0 hover:bg-gray-200 hover:text-gray-400;
+  }
+
+  .card {
+    @apply bg-white border-2 border-black rounded-2xl;
+  }
+  .input {
+    @apply w-full rounded-xl border-2 border-black bg-white px-4 py-3 text-[25px]
+      placeholder:text-gray-400 transition-shadow
+      focus:outline-none focus:shadow-[0_0_0_4px_#0000001a];
+  }
+  .label {
+    @apply block text-[22px] font-bold mb-2 tracking-wide;
+  }
+  .page-title {
+    @apply text-[39px] font-black tracking-tight leading-snug;
+  }
+  .page-sub {
+    @apply text-[23px] text-gray-600 leading-relaxed mt-2;
+  }
+  .step-badge {
+    @apply inline-flex items-center gap-2 rounded-full border-2 border-black px-3 py-0.5
+      text-[18px] font-bold tracking-widest uppercase;
+  }
+}
+
+/* ---------- Animations ---------- */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.45s cubic-bezier(.2,.8,.2,1) both; }
+
+@keyframes pop-in {
+  0%   { opacity: 0; transform: scale(.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.animate-pop-in { animation: pop-in .25s cubic-bezier(.2,.8,.2,1) both; }
+
+@keyframes typing-dot {
+  0%, 80%, 100% { opacity: .2; transform: translateY(0); }
+  40%           { opacity: 1;  transform: translateY(-4px); }
+}
+.typing-dot { animation: typing-dot 1.2s infinite ease-in-out; }
+.typing-dot:nth-child(2) { animation-delay: .15s; }
+.typing-dot:nth-child(3) { animation-delay: .3s; }
+
+@keyframes rec-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(0,0,0,.45); }
+  70%  { box-shadow: 0 0 0 12px rgba(0,0,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
+}
+.rec-pulse { animation: rec-pulse 1.4s infinite; }
+
+.stagger > * { animation: fade-up .45s cubic-bezier(.2,.8,.2,1) both; }
+.stagger > *:nth-child(1) { animation-delay: .02s; }
+.stagger > *:nth-child(2) { animation-delay: .08s; }
+.stagger > *:nth-child(3) { animation-delay: .14s; }
+.stagger > *:nth-child(4) { animation-delay: .20s; }
+.stagger > *:nth-child(5) { animation-delay: .26s; }
+.stagger > *:nth-child(6) { animation-delay: .32s; }
+
+/* スクロールバー（モノトーン） */
+.scroll-thin::-webkit-scrollbar { width: 10px; height: 8px; }
+.scroll-thin::-webkit-scrollbar-thumb { background: #000; border-radius: 10px; border: 3px solid #f9fafb; }
+.scroll-thin::-webkit-scrollbar-track { background: transparent; }
